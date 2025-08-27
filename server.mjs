@@ -23,6 +23,15 @@ app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
 }));
+
+app.options("*", cors({
+  origin: [
+    "http://localhost:5173",
+    "https://your-frontend.vercel.app"
+  ],
+  credentials: true
+}));
+
 const server = createServer(app);
 const io = new Server(server, { cors: { origin: "*", methods: "*"} });
 app.use(express.json());
@@ -40,10 +49,6 @@ mongoose.connection.on("error", (err) => {
 // Root route
 app.get("/", (req, res) => {
     res.send("Welcome to the Chat App API");
-});
-
-app.get("/health", (req, res) => {
-  res.json({ status: "ok", timestamp: Date.now() });
 });
 
 // unathuraizted api routes
