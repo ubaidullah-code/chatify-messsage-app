@@ -41,6 +41,11 @@ mongoose.connection.on("error", (err) => {
 app.get("/", (req, res) => {
     res.send("Welcome to the Chat App API");
 });
+
+app.get("/health", (req, res) => {
+  res.json({ status: "ok", timestamp: Date.now() });
+});
+
 // unathuraizted api routes
 
 app.use('/api/v1', AuthRouter);
